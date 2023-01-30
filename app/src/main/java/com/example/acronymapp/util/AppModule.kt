@@ -50,6 +50,7 @@ object AppModule {
         .build()
         .create(AcronymApi::class.java)
 
+
     @Provides
     @Singleton
     fun provideRepo(acronymApi: AcronymApi, acronymDao: AcronymDao): Repository = RepositoryImpl(acronymApi,acronymDao)
