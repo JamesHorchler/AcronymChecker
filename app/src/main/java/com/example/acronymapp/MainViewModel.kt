@@ -18,30 +18,31 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: RepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 
-    private val _acronym: MutableStateFlow<Resource<AcronymItemModel>> = MutableStateFlow(Resource.Loading())
-    val acronym: StateFlow<Resource<AcronymItemModel>> = _acronym
+    private val _acronym: MutableStateFlow<Resource<List<AcronymItemModel>>> =
+        MutableStateFlow(Resource.Loading())
+    val acronym: StateFlow<Resource<List<AcronymItemModel>>> = _acronym
 
-    private fun handleResponse(response: Response<AcronymItemModel>): Resource<AcronymItemModel>{
+    private fun handleResponse(response: Response<List<AcronymItemModel>>): Resource<List<AcronymItemModel>> {
         return if (response.isSuccessful) Resource.Success(response.body()!!)
         else Resource.Error(response.message())
     }
 
-    init{
-        getAcronym()
-    }
+//    init{
+//        getAcronym("HMM")
+//    }
 
-    private fun getAcronym(){
-        viewModelScope.launch(Dispatchers.IO){
-            try{
+    fun getAcronym(sf: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 _acronym.emit(Resource.Loading())
-                val response = repository.getAcronym()
+                val response = repository.getAcronym(sf)
                 _acronym.emit(handleResponse(response))
 
-            } catch (e: HttpException){
+            } catch (e: HttpException) {
                 _acronym.emit(Resource.Error("Error occurred"))
-            } catch (e: IOException){
+            } catch (e: IOException) {
                 _acronym.emit(Resource.Error("Dunno"))
             }
         }

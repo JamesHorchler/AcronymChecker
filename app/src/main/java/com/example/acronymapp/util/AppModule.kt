@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.example.acronymapp.api.AcronymApi
 import com.example.acronymapp.api.ApiReferences
-import com.example.acronymapp.database.AcronymDao
-import com.example.acronymapp.database.AcronymDatabase
 import com.example.acronymapp.repository.Repository
 import com.example.acronymapp.repository.RepositoryImpl
 import dagger.Module
@@ -53,11 +51,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepo(acronymApi: AcronymApi, acronymDao: AcronymDao): Repository = RepositoryImpl(acronymApi)
+    fun provideRepo(acronymApi: AcronymApi): Repository = RepositoryImpl(acronymApi)
 
-
-    @Provides
-    @Singleton
-    fun provideDao(database: AcronymDatabase) = database.getDao()
+//
+//    @Provides
+//    @Singleton
+//    fun provideDao(database: AcronymDatabase) = database.getDao()
 
 }

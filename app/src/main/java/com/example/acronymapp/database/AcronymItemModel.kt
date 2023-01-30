@@ -2,14 +2,19 @@ package com.example.acronymapp.database
 
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "Acronyms")
+//@Entity(tableName = "Acronyms")
 data class AcronymItemModel(
-//    @SerializedName("lfs")
-//    val lfs: List<LfModel> = listOf(),
-    @PrimaryKey
+//    @PrimaryKey
     @SerializedName("sf")
-    val sf: String = ""
-)
+    val sf: String = "",
+    @SerializedName("lfs")
+//    @Ignore
+    val lfs: List<LfModel> = listOf()
+) {
+
+
+}
