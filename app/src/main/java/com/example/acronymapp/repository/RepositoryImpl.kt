@@ -8,4 +8,5 @@ class RepositoryImpl @Inject constructor(
     private val acronymApi: AcronymApi,
     private val acronymDao: AcronymDao
 ) {
+     suspend fun getAcronymDefinition() = acronymApi.getAcronymDef()
 }

@@ -13,4 +13,5 @@ interface AcronymDao {
     suspend fun insertAcronym(acronym: AcronymItemModel)
 
     @Query("SELECT EXISTS(SELECT * FROM acronyms WHERE sf = :sf)")
+    fun getAcronym(sf: String): String
 }
