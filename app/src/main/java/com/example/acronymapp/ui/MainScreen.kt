@@ -1,18 +1,16 @@
 package com.example.acronymapp.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.dp
 import com.example.acronymapp.MainViewModel
-import com.example.acronymapp.database.AcronymItemModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -22,7 +20,7 @@ fun MainScreen(viewModel: MainViewModel) {
     Column(
 
     ) {
-        var text by remember { mutableStateOf("HMM") }
+        var text by remember { mutableStateOf("") }
         TextField(
             value = text,
             onValueChange = { newText ->
@@ -30,12 +28,19 @@ fun MainScreen(viewModel: MainViewModel) {
             }
         )
 
-        Button(onClick = {viewModel.getAcronym(text.trim())}) {
+        Button(onClick = { viewModel.getAcronym(text.trim()) }) {
             Text(text = "Search Acronym")
         }
-        Card(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            Text(text = acronym.value.data?.toString() ?: "NULL")
-        }
+        if (acronym.value.data != null)
+            LazyColumn(modifier = Modifier.padding(16.dp)) {
+                items(acronym.value.data!![0].lfs) { item ->
+                    Text(text = " Long form: " + item.lf.capitalize() +
+                    "\n Frequency: " + item.freq +
+                            "\n Since: " + item.since +"\n"
+                    )
+
+                }
+            }
     }
 
 }
