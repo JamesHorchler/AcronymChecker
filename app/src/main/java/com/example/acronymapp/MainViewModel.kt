@@ -28,12 +28,15 @@ class MainViewModel @Inject constructor(
         else Resource.Error(response.message())
     }
 
+    init{
+        getAcronym()
+    }
 
     private fun getAcronym(){
         viewModelScope.launch(Dispatchers.IO){
             try{
                 _acronym.emit(Resource.Loading())
-                val response = repository.getAcronymDefinition()
+                val response = repository.getAcronym()
                 _acronym.emit(handleResponse(response))
 
             } catch (e: HttpException){

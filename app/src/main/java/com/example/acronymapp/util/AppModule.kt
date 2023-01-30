@@ -53,7 +53,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepo(acronymApi: AcronymApi, acronymDao: AcronymDao): Repository = RepositoryImpl(acronymApi,acronymDao)
+    fun provideRepo(acronymApi: AcronymApi, acronymDao: AcronymDao): Repository = RepositoryImpl(acronymApi)
 
 
     @Provides
