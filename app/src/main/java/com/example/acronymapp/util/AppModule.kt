@@ -53,9 +53,4 @@ object AppModule {
     @Singleton
     fun provideRepo(acronymApi: AcronymApi): Repository = RepositoryImpl(acronymApi)
 
-//
-//    @Provides
-//    @Singleton
-//    fun provideDao(database: AcronymDatabase) = database.getDao()
-
 }

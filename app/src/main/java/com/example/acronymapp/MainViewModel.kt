@@ -29,10 +29,6 @@ class MainViewModel @Inject constructor(
         else Resource.Error(response.message())
     }
 
-//    init{
-//        getAcronym("HMM")
-//    }
-
     fun getAcronym(sf: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
